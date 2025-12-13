@@ -9,7 +9,7 @@ class RendezVous extends Model
 {
      use HasFactory;
 
-    protected $table = 'rendez_vous'; // Spécifier explicitement le nom de la table
+    // protected $table = 'rendez_vous'; // Corrected to use default 'rendez_vouses'
 
     protected $fillable = [
         'patient_id',

@@ -28,3 +28,17 @@ Route::get('/specialites/index', [SpecialiteController::class, 'index'])->name('
 Route::get('/rendez-vous/medecin', [App\Http\Controllers\ViewController::class, 'choisirMedecin'])->name('rendez-vous.medecin');
 Route::get('/rendez-vous/date-heure', [App\Http\Controllers\ViewController::class, 'dateHeure'])->name('rendez-vous.date_heure');
 Route::get('/rendez-vous/informations', [App\Http\Controllers\ViewController::class, 'informations'])->name('rendez-vous.informations');
+
+// Admin Routes
+Route::get('/admin/login', [App\Http\Controllers\AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [App\Http\Controllers\AdminAuthController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [App\Http\Controllers\AdminAuthController::class, 'logout'])->name('admin.logout');
+
+Route::middleware([App\Http\Middleware\AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+    Route::get('/appointments', [App\Http\Controllers\AdminController::class, 'appointments'])->name('appointments');
+    Route::get('/doctors', [App\Http\Controllers\AdminController::class, 'doctors'])->name('doctors');
+    Route::get('/patients', [App\Http\Controllers\AdminController::class, 'patients'])->name('patients');
+    Route::get('/specialties', [App\Http\Controllers\AdminController::class, 'specialties'])->name('specialties');
+    Route::get('/settings', [App\Http\Controllers\AdminController::class, 'settings'])->name('settings');
+});

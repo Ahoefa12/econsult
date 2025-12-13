@@ -24,7 +24,9 @@
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="logo">
-            <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="logo">
+            <div class="brand-logo">
+                <i class="fas fa-heart-pulse"></i>
+            </div>
             <span>E-Consult</span>
         </div>
 
@@ -42,6 +44,53 @@
     <main>
         @yield('content')
     </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <div class="brand-logo" style="width: 35px; height: 35px; font-size: 1rem;">
+                            <i class="fas fa-heart-pulse"></i>
+                        </div>
+                        <span>E-Consult</span>
+                    </div>
+                    <p class="footer-desc">
+                        Votre plateforme de confiance pour la prise de rendez-vous médicaux en ligne. Simple, rapide et sécurisé.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="icon fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="icon fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="icon fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="icon fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Liens Rapides</h4>
+                    <ul>
+                        <li><a href="{{ url('/') }}">Accueil</a></li>
+                        <li><a href="{{ url('/specialites/index') }}">Spécialités</a></li>
+                        <li><a href="{{ url('/comment-ca-marche') }}">Comment ça marche</a></li>
+                        <li><a href="{{ url('/contactez-nous') }}">Contactez-nous</a></li>
+                        <li><a href="{{ route('admin.dashboard') }}" style="color: #2563eb; font-weight: 500;">Administration</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-location-dot"></i> Lomé, Togo</li>
+                        <li><i class="fa-solid fa-phone"></i> +228 90 00 00 00</li>
+                        <li><i class="fa-solid fa-envelope"></i> contact@e-consult.com</li>
+                    </ul>
+                </div>
+               
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-Consult. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
 
     @yield('scripts')
 </body>
