@@ -1,0 +1,168 @@
+/* HERO SECTION */
+.specialite-hero {
+    background: linear-gradient(135deg, #05445E 0%, #1AAE9F 100%);
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 60px;
+}
+
+.specialite-hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.specialite-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* CONTAINER */
+.specialites-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+}
+
+/* GRID DES SPECIALITÉS */
+.specialites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* CARTE DE SPECIALITÉ */
+.specialite-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #f3f4f6;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.specialite-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: #0EAD69;
+}
+
+/* ICON BOX */
+.icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+    transition: 0.3s ease;
+}
+
+/* Colors for Icon Boxes */
+.icon-box.blue {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.icon-box.green {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.icon-box.red {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.icon-box.pink {
+    background: #fce7f3;
+    color: #db2777;
+}
+
+.icon-box.yellow {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+
+.icon-box.purple {
+    background: #f3e8ff;
+    color: #9333ea;
+}
+
+.icon-box.cyan {
+    background: #cffafe;
+    color: #0891b2;
+}
+
+.icon-box.orange {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.icon-box.indigo {
+    background: #e0e7ff;
+    color: #4f46e5;
+}
+
+
+.specialite-card:hover .icon-box {
+    transform: scale(1.1);
+}
+
+/* TEXT CONTENT */
+.titre {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.description {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+/* COUNT */
+.medecins-count {
+    font-size: 14px;
+    font-weight: 600;
+    color: #05445E;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f9ff;
+    padding: 8px 16px;
+    border-radius: 50px;
+}
+
+.medecins-count i {
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .specialite-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .specialites-grid {
+        grid-template-columns: 1fr;
+    }
+}

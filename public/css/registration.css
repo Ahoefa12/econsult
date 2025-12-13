@@ -1,0 +1,80 @@
+/* Conteneur du formulaire */
+.form-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    letter-spacing: 1px;
+}
+
+form {
+    width: 420px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Labels */
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Inputs */
+form input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Input focus */
+form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Bouton */
+form button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* Bouton hover */
+form button:hover {
+    background: #0056b3;
+}
+
+/* Espacement des champs */
+form br {
+    display: none; /* On supprime les <br> pour un design propre */
+}
+
+form input + label {
+    margin-top: 18px;
+}
+
+/* Animation de hover sur chaque input */
+form input:hover {
+    border-color: #888;
+}

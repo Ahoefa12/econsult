@@ -1,0 +1,209 @@
+/* HERO SECTION */
+.ccm-hero {
+    background: linear-gradient(135deg, #05445E 0%, #1AAE9F 100%);
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 60px;
+}
+
+.ccm-hero-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.ccm-hero-content p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* GENERAL CONTAINER */
+.ccm-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+}
+
+/* STEPS SECTION */
+.steps-wrapper {
+    position: relative;
+    padding: 40px 0;
+}
+
+/* Connecting Line */
+.steps-line {
+    position: absolute;
+    top: 50px;
+    /* Adjust based on icon size */
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #e2e8f0;
+    z-index: 0;
+    display: block;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+.step-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f3f4f6;
+}
+
+.step-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+}
+
+.step-icon-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 25px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 8px #f8fafc;
+    /* Outer ring */
+}
+
+.step-number {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: #0EAD69;
+    color: white;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 3px solid white;
+}
+
+.step-icon {
+    font-size: 40px;
+    color: #05445E;
+}
+
+.step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 15px;
+}
+
+.step-card p {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+/* CTA SECTION */
+.cta-section {
+    background: #05445E;
+    border-radius: 30px;
+    padding: 60px 40px;
+    text-align: center;
+    color: white;
+    margin-top: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+}
+
+.cta-content {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.cta-content p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-cta {
+    display: inline-block;
+    padding: 18px 40px;
+    background: #0EAD69;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cta:hover {
+    background: #079B4C;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .steps-line {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ccm-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+}
