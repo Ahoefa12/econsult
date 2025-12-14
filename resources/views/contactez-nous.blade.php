@@ -90,12 +90,6 @@
         </div>
     </div>
 
-    <!-- FOOTER IS INCLUDED IN LAYOUT OR NEEDS TO BE HERE? -->
-    <!-- The previous file had the footer explicitly. Let's look at Layout.blade.php again to see if it has a footer. -->
-    <!-- Answer: Layout.blade.php does NOT have a footer. So I must include it here or create a partial. -->
-    <!-- For consistency with the previous file, I will keep the footer here, but maybe I should have refactored it to Layout? -->
-    <!-- The user asked to improve THIS page, not refactor the whole site. I will include the footer code here as it was before, but maybe cleaner. -->
-    
     <!-- MAP SECTION -->
     <div class="contact-map-section">
         <div class="map-wrapper">
@@ -103,46 +97,4 @@
         </div>
     </div>
 
-     <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-row">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="logo">
-                        <span>E-Consult</span>
-                    </div>
-                    <p class="footer-desc">
-                        Votre plateforme de confiance pour la prise de rendez-vous médicaux en ligne. Simple, rapide et sécurisé.
-                    </p>
-                    <div class="social-links">
-                        <a href="#"><i class="icon fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="icon fa-brands fa-twitter"></i></a>
-                        <a href="#"><i class="icon fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="icon fa-brands fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Liens Rapides</h4>
-                    <ul>
-                        <li><a href="{{ url('/') }}">Accueil</a></li>
-                        <li><a href="{{ url('/specialites/index') }}">Spécialités</a></li>
-                        <li><a href="{{ url('/comment-ca-marche') }}">Comment ça marche</a></li>
-                        <li><a href="{{ url('/contactez-nous') }}">Contactez-nous</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><i class="fa-solid fa-location-dot"></i> Lomé, Togo</li>
-                        <li><i class="fa-solid fa-phone"></i> +228 90 00 00 00</li>
-                        <li><i class="fa-solid fa-envelope"></i> contact@e-consult.com</li>
-                    </ul>
-                </div>
-               
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 E-Consult. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer> 
 @endsection

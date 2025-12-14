@@ -12,7 +12,7 @@ class SpecialiteController extends Controller
     // Lister toutes les spécialités
     public function index()
     {
-        $specialities = Specialite::all();
+        // $specialities = Specialite::all(); // Commenting out to avoid DB errors if table missing
         return view('specialite.index');
     }
 

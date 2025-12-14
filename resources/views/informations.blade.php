@@ -39,33 +39,38 @@
     <!-- FORM CARD -->
     <div class="reservation-card">
         
-        <a href="{{ route('rendez-vous.date_heure') }}" class="back-link">Retour</a>
+        <a href="{{ route('rendez-vous.date_heure', request()->all()) }}" class="back-link">Retour</a>
 
         <h2 class="card-title">Vos informations</h2>
 
-        <form action="#" method="POST"> <!-- Generic action for now -->
+        <form action="{{ route('rendez-vous.confirmer') }}" method="POST">
             @csrf
+            <!-- Hidden Fields to Pass Previous Step Data -->
+            <input type="hidden" name="medecin_id" value="{{ request('medecin_id') }}">
+            <input type="hidden" name="date" value="{{ request('date') }}">
+            <input type="hidden" name="heure" value="{{ request('heure') }}">
+
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">Prénom *</label>
-                    <input type="text" class="form-input" required>
+                    <input type="text" name="prenom" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->prenom : '' }}" required readonly>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Nom *</label>
-                    <input type="text" class="form-input" required>
+                    <input type="text" name="nom" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->nom : '' }}" required readonly>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email *</label>
-                    <input type="email" class="form-input" required>
+                    <input type="email" name="email" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->email : '' }}" required readonly>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Téléphone *</label>
-                    <input type="tel" class="form-input" required>
+                    <input type="tel" name="telephone" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->telephone : '' }}" required>
                 </div>
                 
                 <div class="form-group full-width">
                     <label class="form-label">Motif de consultation</label>
-                    <textarea class="form-textarea" placeholder="Décrivez brièvement le motif de votre consultation (max 500 caractères)"></textarea>
+                    <textarea name="motif" class="form-textarea" placeholder="Décrivez brièvement le motif de votre consultation (max 500 caractères)"></textarea>
                 </div>
             </div>
 
@@ -78,49 +83,5 @@
     </div>
 
 </div>
-
-<!-- Reuse the same footer -->
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-row">
-            <div class="footer-col">
-                <div class="footer-logo">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2966/2966327.png" alt="logo">
-                    <span>E-Consult</span>
-                </div>
-                <p class="footer-desc">
-                    Votre plateforme de confiance pour la prise de rendez-vous médicaux en ligne. Simple, rapide et sécurisé.
-                </p>
-                <div class="social-links">
- <a href="#"><i class="icon fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="icon fa-brands fa-twitter"></i></a>
-                        <a href="#"><i class="icon fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="icon fa-brands fa-linkedin-in"></i></a>
-                    
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Liens Rapides</h4>
-                <ul>
-                    <li><a href="{{ url('/') }}">Accueil</a></li>
-                    <li><a href="{{ url('/specialites/index') }}">Spécialités</a></li>
-                    <li><a href="{{ url('/comment-ca-marche') }}">Comment ça marche</a></li>
-                    <li><a href="{{ url('/contactez-nous') }}">Contactez-nous</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <ul>
-                    <li><i class="fa-solid fa-location-dot"></i> Lomé, Togo</li>
-                    <li><i class="fa-solid fa-phone"></i> +228 90 00 00 00</li>
-                    <li><i class="fa-solid fa-envelope"></i> contact@e-consult.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 E-Consult. Tous droits réservés.</p>
-        </div>
-    </div>
-</footer>
 
 @endsection
