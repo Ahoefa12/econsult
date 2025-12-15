@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rendez_vouses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('medecin_id')->constrained('medecins')->onDelete('cascade');
             $table->dateTime('date_heure');
             $table->string('nom');

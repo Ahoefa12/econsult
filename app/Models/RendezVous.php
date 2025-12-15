@@ -7,14 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class RendezVous extends Model
 {
-     use HasFactory;
+    use HasFactory;
 
     // protected $table = 'rendez_vous'; // Corrected to use default 'rendez_vouses'
 
     protected $fillable = [
-        'patient_id',
+        'user_id',
         'medecin_id',
         'date_heure',
+        'nom',
+        'prenom',
+        'telephone',
+        'email',
         'duree_minutes',
         'motif_consultation',
         'statut',
@@ -24,9 +28,9 @@ class RendezVous extends Model
         'date_heure' => 'datetime',
     ];
 
-    public function patient()
+    public function user()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(User::class);
     }
 
     public function medecin()

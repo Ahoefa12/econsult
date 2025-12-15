@@ -73,7 +73,7 @@
                         <li><a href="{{ url('/specialites/index') }}">Spécialités</a></li>
                         <li><a href="{{ url('/comment-ca-marche') }}">Comment ça marche</a></li>
                         <li><a href="{{ url('/contactez-nous') }}">Contactez-nous</a></li>
-                        <li><a href="{{ route('admin.dashboard') }}" style="color: #2563eb; font-weight: 500;">Administration</a></li>
+                        <!-- <li><a href="{{ route('admin.dashboard') }}" style="color: #2563eb; font-weight: 500;">Administration</a></li> -->
                     </ul>
                 </div>
                 <div class="footer-col">

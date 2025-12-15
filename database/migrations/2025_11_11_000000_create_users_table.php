@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,11 +12,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            $table->string('nom');
+            $table->string('prenom');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role',['patient','medecin','admin'])->default('patient'); // 'patient', 'medecin', 'admin'
+            $table->string('adresse');
+            $table->string('telephone')->nullable();
+            $table->string('date_naissance')->nullable();
+            $table->string('sexe')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

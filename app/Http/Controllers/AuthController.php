@@ -8,72 +8,57 @@ use App\Models\User;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
-            'prenom' => 'required|string|max:255',
+        $validated = $request->validate([
             'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
             'adresse' => 'required|string|max:255',
             'telephone' => 'required|string|max:20',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        DB::beginTransaction();
+        $user = User::create([
+            'nom' => $validated['nom'],
+            'prenom' => $validated['prenom'],
+            'adresse' => $validated['adresse'],
+            'telephone' => $validated['telephone'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role_id' => 2, // 2 = Patient (default for registration)
+        ]);
 
-        try {
-            // 1. Create User
-            $user = User::create([
-                'name' => $request->prenom . ' ' . $request->nom, // Combine for display name
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => 'patient',
-            ]);
+        Auth::login($user);
 
-            // 2. Create Patient Record
-            Patient::create([
-                'user_id' => $user->id, // This needs to be string based on migration, but usually int? Migration said string
-                'nom' => $request->nom,
-                'prenom' => $request->prenom,
-                'email' => $request->email, // Redundant but in schema
-                'telephone' => $request->telephone,
-                'adresse' => $request->adresse,
-            ]);
-
-            DB::commit();
-
-            Auth::login($user);
-
-            return redirect()->route('rendez-vous');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Une erreur est survenue lors de l\'inscription.'])->withInput();
-        }
+        return redirect()->route('rendez-vous');
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $validated = $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            // Redirect to intended page (e.g. rendez-vous) or default
-            return redirect()->intended('rendez-vous');
+        if (Auth::attempt($validated)) {
+            $user = User::where('email', $validated['email'])->first();
+            $role = Role::where('id', $user->role_id)->first();
+            if ($role->typeRole === 'Patient') {
+                return redirect()->route('rendez-vous');
+            } else {
+                return redirect()->route('admin.dashboard');
+            }
+        } else {
+            return back()->withErrors([
+                'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
+            ])->onlyInput('email');
         }
-
-        return back()->withErrors([
-            'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-        ])->onlyInput('email');
     }
-
     public function logout(Request $request)
     {
         Auth::logout();

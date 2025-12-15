@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RendezVous;
 use App\Models\Medecin;
-use App\Models\Patient;
+use App\Models\User;
 use App\Models\Specialite;
 use Carbon\Carbon;
 
@@ -16,7 +16,7 @@ class AdminController extends Controller
         $stats = [
             'appointments_today' => RendezVous::whereDate('date_heure', Carbon::today())->count(),
             'total_doctors' => Medecin::count(),
-            'total_patients' => Patient::count(),
+            'total_patients' => User::count(),
             'pending_requests' => RendezVous::where('statut', 'en_attente')->count(),
         ];
         return view('admin.dashboard', compact('stats'));

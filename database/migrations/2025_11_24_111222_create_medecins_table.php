@@ -15,8 +15,8 @@ class CreateMedecinsTable extends Migration
     {
         Schema::create('medecins', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('specialite_id')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('specialite_id')->constrained('specialites')->onDelete('cascade');
             $table->string('nom');
             $table->string('prenom');
             $table->string('email')->unique();
@@ -26,7 +26,6 @@ class CreateMedecinsTable extends Migration
             $table->string('photo')->nullable(); // Chemin vers l'image
             $table->json('diplomes')->nullable(); // Ex: ['PhD en Cardiologie', 'DU Imagerie']
             $table->json('horaires_travail')->nullable(); // Ex: ['Lundi': ['09:00-12:00', '14:00-18:00']]
-            $table->foreignIdFor(Specialite::class)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

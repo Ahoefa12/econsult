@@ -53,19 +53,19 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label class="form-label">Prénom *</label>
-                    <input type="text" name="prenom" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->prenom : '' }}" required readonly>
+                    <input type="text" name="prenom" class="form-input" value="{{ Auth::user()->prenom }}" required >
                 </div>
                 <div class="form-group">
                     <label class="form-label">Nom *</label>
-                    <input type="text" name="nom" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->nom : '' }}" required readonly>
+                    <input type="text" name="nom" class="form-input" value="{{ Auth::user()->nom }}" required >
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email *</label>
-                    <input type="email" name="email" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->email : '' }}" required readonly>
+                    <input type="email" name="email" class="form-input" value="{{ Auth::user()->email }}" required >
                 </div>
                 <div class="form-group">
                     <label class="form-label">Téléphone *</label>
-                    <input type="tel" name="telephone" class="form-input" value="{{ Auth::check() && Auth::user()->patient ? Auth::user()->patient->telephone : '' }}" required>
+                    <input type="tel" name="telephone" class="form-input" value="{{ Auth::user()->telephone }}" required>
                 </div>
                 
                 <div class="form-group full-width">

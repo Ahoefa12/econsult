@@ -19,6 +19,14 @@ Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout']); /
 
 // Protected Appointment Routes
 Route::middleware(['auth'])->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+    Route::get('/appointments', [App\Http\Controllers\AdminController::class, 'appointments'])->name('appointments');
+    Route::get('/doctors', [App\Http\Controllers\AdminController::class, 'doctors'])->name('doctors');
+    Route::get('/patients', [App\Http\Controllers\AdminController::class, 'patients'])->name('patients');
+    Route::get('/specialties', [App\Http\Controllers\AdminController::class, 'specialties'])->name('specialties');
+    Route::get('/settings', [App\Http\Controllers\AdminController::class, 'settings'])->name('settings');
+});
     Route::get('/rendez-vous', [App\Http\Controllers\ViewController::class, 'rendezvous'])->name('rendez-vous');
     Route::get('/rendez-vous/medecin', [App\Http\Controllers\ViewController::class, 'choisirMedecin'])->name('rendez-vous.medecin');
     Route::get('/rendez-vous/date-heure', [App\Http\Controllers\ViewController::class, 'dateHeure'])->name('rendez-vous.date_heure');
@@ -28,11 +36,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Admin Routes
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
-    Route::get('/appointments', [App\Http\Controllers\AdminController::class, 'appointments'])->name('appointments');
-    Route::get('/doctors', [App\Http\Controllers\AdminController::class, 'doctors'])->name('doctors');
-    Route::get('/patients', [App\Http\Controllers\AdminController::class, 'patients'])->name('patients');
-    Route::get('/specialties', [App\Http\Controllers\AdminController::class, 'specialties'])->name('specialties');
-    Route::get('/settings', [App\Http\Controllers\AdminController::class, 'settings'])->name('settings');
-});

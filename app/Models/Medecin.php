@@ -36,7 +36,7 @@ class Medecin extends Authenticatable
 
     public function speciality()
     {
-        return $this->belongsTo(Specialite::class);
+        return $this->belongsTo(Specialite::class, 'specialite_id');
     }
 
     public function rendezVous()

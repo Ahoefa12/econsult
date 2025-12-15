@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Medecin;
 use App\Models\Specialite;
 use Carbon\Carbon;
+use App\Models\User;
 
 class ViewController extends Controller
 {
@@ -45,9 +46,16 @@ class ViewController extends Controller
         return view('rendez-vous');
     }
 
-    public function choisirMedecin()
+    public function choisirMedecin(Request $request)
     {
-        return view('medecin');
+        $specialiteId = $request->query('specialite_id');
+
+        // Fetch doctors based on specialty if provided, otherwise get all
+        $medecins = $specialiteId
+            ? Medecin::with('speciality')->where('specialite_id', $specialiteId)->get()
+            : Medecin::with('speciality')->get();
+
+        return view('medecin', compact('medecins'));
     }
 
     public function dateHeure()
@@ -62,86 +70,48 @@ class ViewController extends Controller
 
     public function confirmerRendezVous(Request $request)
     {
-        // 1. Get Authenticated Patient
-        $user = Auth::user();
-        $patient = $user->patient;
-
-        if (!$patient) {
-            return back()->withErrors(['error' => 'Aucun dossier patient associé à ce compte.']);
-        }
-
-        // 2. Validate Data (Assuming mock data passed via form or we retrieve from request)
-        // In a real flow, we'd pass IDs. For this demo, let's assume we have them or look them up.
-        // The form currently sends: prenom, nom, email, telephone, motif (which are confirming info)
-        // BUT we need: medecin_id, date, heure from previous steps.
-        // Ideally, these should be passed as hidden fields in the form. But for now I'll check query/inputs.
-        
-        // Mocking ID retrieval if not in request (since we didn't add hidden fields yet to informations.blade.php)
-        // We will assume the user has followed the flow and we might need to grab from session if we stored it there.
-        // For simplicity now, let's try to get from request, or fallback to a dummy logic if missing (for demo), 
-        // BUT strictly we should use hidden inputs. I will add hidden inputs validation next.
-        
-        // Let's assume we added hidden inputs (I will do that in the next step).
-        
+        // Validation des données
         $request->validate([
-            'medecin_id' => 'required',
-            'date' => 'required',
+            'medecin_id' => 'required|exists:medecins,id',
+            'date' => 'required|date',
             'heure' => 'required',
-            'motif' => 'nullable|string'
+            'motif' => 'nullable|string|max:500',
+            'nom' => 'required|string',
+            'prenom' => 'required|string',
+            'email' => 'required|email',
+            'telephone' => 'required|string',
         ]);
 
-        $medecinId = $request->medecin_id;
-        $date = $request->date; // YYYY-MM-DD
-        $heure = $request->heure; // HH:MM
-        $motif = $request->motif;
-        
-        // Combine date and time
-        $dateHeure = Carbon::parse("$date $heure");
+        // Combiner date et heure pour le stockage
+        $dateHeure = Carbon::parse($request->date . ' ' . $request->heure);
 
-        // 3. Save Appointment
+        // Récupérer le médecin pour les détails
+        $medecin = Medecin::with('speciality')->findOrFail($request->medecin_id);
+
+        // Créer le rendez-vous
         $rendezVous = RendezVous::create([
-            'patient_id' => $patient->id,
-            'medecin_id' => $medecinId,
+            'user_id' => Auth::id(),
+            'medecin_id' => $request->medecin_id,
             'date_heure' => $dateHeure,
-            'duree_minutes' => 30, // Default
-            'motif_consultation' => $motif,
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'telephone' => $request->telephone,
+            'email' => $request->email,
+            'motif_consultation' => $request->motif,
             'statut' => 'en_attente',
-            // Also saving contact info for snapshot (as per schema update)
-            'nom' => $patient->nom,
-            'prenom' => $patient->prenom,
-            'telephone' => $patient->telephone,
-            'email' => $patient->email,
+            'duree_minutes' => 30, // Valeur par défaut
         ]);
 
-        // 4. Prepare Confirmation Data
-        $medecin = Medecin::find($medecinId);
-        $appointment = [
-            'email' => $patient->email,
-            'specialite' => $medecin->speciality->nom ?? 'Généraliste',
+        // Préparer les données pour la vue de confirmation
+        $appointmentData = [
+            'email' => $request->email,
+            'specialite' => $medecin->speciality->nom,
             'medecin' => 'Dr. ' . $medecin->prenom . ' ' . $medecin->nom,
-            'date' => $dateHeure->translatedFormat('l d F Y'),
+            'date' => $dateHeure->translatedFormat('l d F Y'), // Format français ex: samedi 20 décembre 2025
             'heure' => $dateHeure->format('H:i'),
         ];
-        
-        // Store in session for the redirect view
-        return redirect()->route('rendez-vous.confirmation')->with('appointment', $appointment);
+
+        return view('confirmation', ['appointment' => $appointmentData]);
     }
 
-    public function confirmation()
-    {
-        if (session('appointment')) {
-            $appointment = session('appointment');
-        } else {
-             // Fallback mock data if accessed directly for testing
-             $appointment = [
-                'email' => 'diane@gmail.com',
-                'specialite' => 'Dermatologie',
-                'medecin' => 'Dr. Marie Lefebvre',
-                'date' => 'samedi 20 décembre 2025',
-                'heure' => '10:00'
-            ];
-        }
-        
-        return view('confirmation', compact('appointment'));
-    }
 }
