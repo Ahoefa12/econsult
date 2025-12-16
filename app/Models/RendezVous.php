@@ -22,6 +22,7 @@ class RendezVous extends Model
         'duree_minutes',
         'motif_consultation',
         'statut',
+        
     ];
 
     protected $casts = [

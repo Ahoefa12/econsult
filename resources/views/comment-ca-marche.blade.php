@@ -80,7 +80,7 @@
                 <p>
                     N'attendez plus pour prendre soin de votre santé. Trouvez le bon médecin dès maintenant.
                 </p>
-                <a href="{{ url('/specialites/index') }}" class="btn-cta">
+                <a href="{{ url('/rendez-vous') }}" class="btn-cta">
                     Commencer maintenant <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
