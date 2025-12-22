@@ -9,6 +9,8 @@ use App\Models\Medecin;
 use App\Models\Specialite;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AppointmentPending;
 
 class ViewController extends Controller
 {
@@ -101,6 +103,17 @@ class ViewController extends Controller
             'statut' => 'en_attente',
             'duree_minutes' => 30, // Valeur par défaut
         ]);
+
+        // Charger les relations pour l'email
+        $rendezVous->load('medecin.speciality');
+
+        // Envoyer l'email de confirmation
+        try {
+            Mail::to($request->email)->send(new AppointmentPending($rendezVous));
+        } catch (\Exception $e) {
+            // Log l'erreur mais ne bloque pas le processus
+            \Log::error('Erreur envoi email: ' . $e->getMessage());
+        }
 
         // Préparer les données pour la vue de confirmation
         $appointmentData = [

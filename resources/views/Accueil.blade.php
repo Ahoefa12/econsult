@@ -8,7 +8,7 @@
     <section class="hero">
         <div class="hero-content">
             <h1>
-                Réservez votre consultation<br>
+                Prenez votre rendez-vous<br>
                 <span>médicale en ligne</span>
             </h1>
 

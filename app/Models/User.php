@@ -26,7 +26,7 @@ class User extends Authenticatable
         'date_naissance',
         'sexe',
         'email',
-        'password', 
+        'password',
         'role_id',
     ];
 
@@ -62,4 +62,9 @@ class User extends Authenticatable
     // {
     //     return $this->hasOne(Medecin::class);
     // }
+
+    public function rendezVous()
+    {
+        return $this->hasMany(RendezVous::class);
+    }
 }

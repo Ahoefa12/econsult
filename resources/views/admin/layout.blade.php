@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
             --primary: #2563eb;
@@ -101,7 +102,8 @@
             font-weight: 500;
         }
 
-        .nav-item:hover, .nav-item.active {
+        .nav-item:hover,
+        .nav-item.active {
             background-color: #eff6ff;
             color: var(--primary);
         }
@@ -231,10 +233,25 @@
             font-size: 1.25rem;
         }
 
-        .stat-icon.blue { background-color: #eff6ff; color: var(--primary); }
-        .stat-icon.green { background-color: #ecfdf5; color: var(--success); }
-        .stat-icon.orange { background-color: #fff7ed; color: var(--warning); }
-        .stat-icon.purple { background-color: #f5f3ff; color: #8b5cf6; }
+        .stat-icon.blue {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        .stat-icon.green {
+            background-color: #ecfdf5;
+            color: var(--success);
+        }
+
+        .stat-icon.orange {
+            background-color: #fff7ed;
+            color: var(--warning);
+        }
+
+        .stat-icon.purple {
+            background-color: #f5f3ff;
+            color: #8b5cf6;
+        }
 
         .stat-info h3 {
             font-size: 1.5rem;
@@ -302,10 +319,25 @@
             display: inline-block;
         }
 
-        .status-success { background-color: #ecfdf5; color: var(--success); }
-        .status-warning { background-color: #fff7ed; color: var(--warning); }
-        .status-danger { background-color: #fef2f2; color: var(--danger); }
-        .status-neutral { background-color: #f3f4f6; color: var(--secondary); }
+        .status-success {
+            background-color: #ecfdf5;
+            color: var(--success);
+        }
+
+        .status-warning {
+            background-color: #fff7ed;
+            color: var(--warning);
+        }
+
+        .status-danger {
+            background-color: #fef2f2;
+            color: var(--danger);
+        }
+
+        .status-neutral {
+            background-color: #f3f4f6;
+            color: var(--secondary);
+        }
 
         .action-btn {
             width: 32px;
@@ -327,16 +359,52 @@
             color: var(--primary);
         }
 
+        /* Alert Messages */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .alert-success {
+            background-color: #ecfdf5;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
                 transition: transform 0.3s;
             }
-            
+
             .sidebar.open {
                 transform: translateX(0);
             }
-            
+
             .main-content {
                 margin-left: 0;
                 width: 100%;
@@ -344,6 +412,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -355,27 +424,33 @@
         </div>
 
         <nav class="nav-menu">
-            <a href="{{ route('admin.dashboard') }}" class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}"
+                class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="fas fa-home"></i>
                 <span>Tableau de bord</span>
             </a>
-            <a href="{{ route('admin.appointments') }}" class="nav-item {{ request()->routeIs('admin.appointments') ? 'active' : '' }}">
+            <a href="{{ route('admin.appointments') }}"
+                class="nav-item {{ request()->routeIs('admin.appointments') ? 'active' : '' }}">
                 <i class="fas fa-calendar-check"></i>
                 <span>Rendez-vous</span>
             </a>
-            <a href="{{ route('admin.doctors') }}" class="nav-item {{ request()->routeIs('admin.doctors') ? 'active' : '' }}">
+            <a href="{{ route('admin.doctors') }}"
+                class="nav-item {{ request()->routeIs('admin.doctors') ? 'active' : '' }}">
                 <i class="fas fa-user-md"></i>
                 <span>Médecins</span>
             </a>
-            <a href="{{ route('admin.patients') }}" class="nav-item {{ request()->routeIs('admin.patients') ? 'active' : '' }}">
+            <a href="{{ route('admin.patients') }}"
+                class="nav-item {{ request()->routeIs('admin.patients') ? 'active' : '' }}">
                 <i class="fas fa-users"></i>
                 <span>Patients</span>
             </a>
-            <a href="{{ route('admin.specialties') }}" class="nav-item {{ request()->routeIs('admin.specialties') ? 'active' : '' }}">
+            <a href="{{ route('admin.specialties') }}"
+                class="nav-item {{ request()->routeIs('admin.specialties') ? 'active' : '' }}">
                 <i class="fas fa-stethoscope"></i>
                 <span>Spécialités</span>
             </a>
-            <a href="{{ route('admin.settings') }}" class="nav-item {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+            <a href="{{ route('admin.settings') }}"
+                class="nav-item {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
                 <i class="fas fa-cog"></i>
                 <span>Paramètres</span>
             </a>
@@ -389,6 +464,13 @@
                 <h4>Administrateur</h4>
                 <p>admin@econsult.com</p>
             </div>
+            <form action="{{ route('admin.logout') }}" method="POST" style="margin-left: auto;">
+                @csrf
+                <button type="submit" class="action-btn" title="Déconnexion"
+                    style="color: #ef4444; background: none; border: none; cursor: pointer; padding: 0.5rem;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </form>
         </div>
     </aside>
 
@@ -414,4 +496,5 @@
         // Simple mobile menu toggle logic if needed
     </script>
 </body>
+
 </html>

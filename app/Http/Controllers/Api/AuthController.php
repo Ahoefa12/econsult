@@ -28,15 +28,15 @@ class AuthController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
 
-        $patient = Patient::create($validated);
+        $user = User::create($validated);
 
-        $token = $patient->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'success' => true,
             'message' => 'Patient enregistré avec succès.',
             'token'   => $token,
-            'patient' => $patient
+            'user' => $user
         ], 201);
     }
 

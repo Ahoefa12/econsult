@@ -3,20 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AppointmentPending;
 use App\Models\RendezVous;
 use App\Models\Medecin;
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail; // Pour l'envoi d'emails
+use Illuminate\Support\Facades\Log;
+
 
 class RendezVousController extends Controller
 {
     // Créer un rendez-vous (F5, F4)
     public function store(Request $request)
     {
-        $patient = $request->user(); // Le patient doit être authentifié
+        $patient = Auth::user(); // Le patient doit être authentifié
+        dd($patient->email);
 
         $validator = Validator::make($request->all(), [
             'medecin_id' => 'required|exists:medecins,id',
@@ -66,13 +72,19 @@ class RendezVousController extends Controller
         }
 
         $rendezvous = RendezVous::create([
-            'patient_id' => $patient->id,
+            'user_id' => $patient->id,
             'medecin_id' => $request->medecin_id,
             'date_heure' => $requestedDateTime,
             'duree_minutes' => $duree,
             'motif_consultation' => $request->motif_consultation,
             'statut' => 'en_attente', // ou 'en_attente' si validation manuelle par le médecin
         ]);
+        $userMail = $patient->email;
+// dd($userMail);
+
+// Mail::to($patient->email)->send(new AppointmentPending());
+
+        
 
         
 
@@ -92,7 +104,7 @@ class RendezVousController extends Controller
             return response()->json(['message' => 'Accès non autorisé'], 403);
         }
         // Pour un patient, il peut voir ses propres RDV
-        if ($request->user() instanceof Patient && $request->user()->id !== $rendezvous->patient_id) {
+        if ($request->user() instanceof User && $request->user()->id !== $rendezvous->patient_id) {
             return response()->json(['message' => 'Accès non autorisé'], 403);
         }
 

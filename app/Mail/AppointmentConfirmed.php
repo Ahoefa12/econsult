@@ -3,14 +3,13 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\RendezVous;
 
-class AppointmentPending extends Mailable
+class AppointmentConfirmed extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,7 +31,7 @@ class AppointmentPending extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmation de votre rendez-vous - E-Consult',
+            subject: 'Rendez-vous confirmé - E-Consult',
         );
     }
 
@@ -42,14 +41,12 @@ class AppointmentPending extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.appointment-pending',
+            view: 'mails.appointment-confirmed',
         );
     }
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {

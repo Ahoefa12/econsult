@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion Administration - E-Consult</title>
+    <title>Connexion Médecin - E-Consult</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -194,9 +194,9 @@
 <body>
     <div class="login-container">
         <div class="login-header">
-            <i class="fas fa-heart-pulse"></i>
-            <h1>Administration</h1>
-            <p>Accès réservé aux administrateurs</p>
+            <i class="fas fa-user-md"></i>
+            <h1>Espace Médecin</h1>
+            <p>Connectez-vous pour accéder à votre tableau de bord</p>
         </div>
 
         <div class="login-body">
@@ -218,7 +218,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.login.post') }}" method="POST">
+            <form action="{{ route('doctor.login.post') }}" method="POST">
                 @csrf
 
                 <div class="form-group">
@@ -226,7 +226,7 @@
                     <div class="input-wrapper">
                         <i class="fas fa-envelope"></i>
                         <input type="email" id="email" name="email" class="form-control"
-                            placeholder="admin@econsult.com" value="{{ old('email') }}" required autofocus>
+                            placeholder="votre.email@exemple.com" value="{{ old('email') }}" required autofocus>
                     </div>
                 </div>
 
@@ -252,7 +252,7 @@
 
         <div class="login-footer">
             <a href="{{ route('Accueil') }}">
-                <i class="fas fa-arrow-left"></i> Retour au site
+                <i class="fas fa-arrow-left"></i> Retour à l'accueil
             </a>
         </div>
     </div>

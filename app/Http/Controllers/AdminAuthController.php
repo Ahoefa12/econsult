@@ -9,7 +9,7 @@ class AdminAuthController extends Controller
 {
     public function showLoginForm()
     {
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        if (Auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
         return view('admin.auth.login');
@@ -22,31 +22,25 @@ class AdminAuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
 
-            if (Auth::user()->role === 'admin') {
-                return redirect()->intended(route('admin.dashboard'));
-            }
-
-            Auth::logout();
-            return back()->withErrors([
-                'email' => 'Accès non autorisé.',
-            ]);
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         return back()->withErrors([
             'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-        ]);
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')
+            ->with('success', 'Vous avez été déconnecté avec succès.');
     }
 }
