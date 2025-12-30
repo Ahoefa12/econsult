@@ -27,34 +27,46 @@
             <div class="brand-logo">
                 <i class="fas fa-heart-pulse"></i>
             </div>
-            <span>E-Consult</span>
+            <span style="white-space: nowrap;">E-Consult</span>
         </div>
 
-        <nav>
+        <nav class="nav-links">
             <a href="{{ url('/') }}">Accueil</a>
             <a href="{{ url('/specialites/index') }}">Spécialités</a>
             <a href="{{ url('/comment-ca-marche') }}">Comment ça marche</a>
             <a href="{{ url('/contactez-nous') }}">Contactez-nous</a>
         </nav>
 
+        <button class="mobile-menu-toggle" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+
         <div style="display: flex; align-items: center; gap: 1rem;">
             @auth
-                <div
-                    style="display: flex; align-items: center; gap: 0.75rem; background: #f3f4f6; padding: 0.5rem 1rem; border-radius: 50px;">
-                    <i class="fas fa-user-circle" style="color: #0EAD69; font-size: 1.25rem;"></i>
-                    <span style="font-weight: 600; font-size: 0.9rem; color: #374151;">{{ Auth::user()->prenom }}</span>
-                    <form action="{{ route('logout') }}" method="POST" style="margin: 0; display: flex;">
-                        @csrf
-                        <button type="submit"
-                            style="background: none; border: none; color: #ef4444; cursor: pointer; padding: 0.25rem; display: flex; align-items: center;"
-                            title="Déconnexion">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                    </form>
+                <div class="user-dropdown">
+                    <button class="user-dropdown-btn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>{{ Auth::user()->prenom }}</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
+                    </button>
+                    <div class="user-dropdown-content">
+                        <!-- Add profile links here if needed -->
+                        <div class="dropdown-header">
+                            <strong>{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</strong>
+                            <span>{{ Auth::user()->email }}</span>
+                        </div>
+                        <hr>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="logout-link">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Déconnexion
+                            </button>
+                        </form>
+                    </div>
                 </div>
             @else
-                <a href="{{ route('login') }}"
-                    style="text-decoration: none; color: #374151; font-weight: 500; font-size: 0.9rem;">Connexion</a>
+                <a href="{{ route('login') }}" class="login-link">Connexion</a>
             @endauth
             <a class="btn-primary" href="{{ url('/rendez-vous') }}">Rendez-vous</a>
         </div>
@@ -114,6 +126,37 @@
     </footer>
 
     @yield('scripts')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', function () {
+                    navLinks.classList.toggle('active');
+                    const icon = menuBtn.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!navLinks.contains(event.target) && !menuBtn.contains(event.target)) {
+                    navLinks.classList.remove('active');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

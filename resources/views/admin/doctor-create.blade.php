@@ -5,7 +5,10 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Nouveau Médecin</h3>
+            <h3 class="card-title">
+                <i class="fas fa-user-plus" style="margin-right: 0.5rem; color: var(--primary);"></i>
+                Nouveau Médecin
+            </h3>
             <a href="{{ route('admin.doctors') }}" class="btn btn-outline">
                 <i class="fas fa-arrow-left"></i> Retour
             </a>
@@ -17,13 +20,16 @@
                 <div class="form-grid">
                     <!-- Informations personnelles -->
                     <div class="form-section">
-                        <h4 class="section-title">Informations personnelles</h4>
+                        <h4 class="section-title">
+                            <i class="fas fa-id-card"></i>
+                            Informations personnelles
+                        </h4>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nom">Nom <span class="required">*</span></label>
                                 <input type="text" id="nom" name="nom" class="form-control" required
-                                    value="{{ old('nom') }}">
+                                    value="{{ old('nom') }}" placeholder="Ex: Dupont">
                                 @error('nom')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -32,7 +38,7 @@
                             <div class="form-group">
                                 <label for="prenom">Prénom <span class="required">*</span></label>
                                 <input type="text" id="prenom" name="prenom" class="form-control" required
-                                    value="{{ old('prenom') }}">
+                                    value="{{ old('prenom') }}" placeholder="Ex: Jean">
                                 @error('prenom')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -43,7 +49,7 @@
                             <div class="form-group">
                                 <label for="email">Email <span class="required">*</span></label>
                                 <input type="email" id="email" name="email" class="form-control" required
-                                    value="{{ old('email') }}">
+                                    value="{{ old('email') }}" placeholder="jean.dupont@email.com">
                                 @error('email')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
@@ -52,14 +58,14 @@
                             <div class="form-group">
                                 <label for="telephone">Téléphone <span class="required">*</span></label>
                                 <input type="tel" id="telephone" name="telephone" class="form-control" required
-                                    value="{{ old('telephone') }}">
+                                    value="{{ old('telephone') }}" placeholder="01 23 45 67 89">
                                 @error('telephone')
                                     <span class="error-message">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 0;">
                             <label for="password">Mot de passe <span class="required">*</span></label>
                             <input type="password" id="password" name="password" class="form-control" required>
                             <small class="form-hint">Minimum 8 caractères</small>
@@ -71,7 +77,10 @@
 
                     <!-- Informations professionnelles -->
                     <div class="form-section">
-                        <h4 class="section-title">Informations professionnelles</h4>
+                        <h4 class="section-title">
+                            <i class="fas fa-user-md"></i>
+                            Informations professionnelles
+                        </h4>
 
                         <div class="form-group">
                             <label for="specialite_id">Spécialité <span class="required">*</span></label>
@@ -90,8 +99,8 @@
 
                         <div class="form-group">
                             <label for="adresse_cabinet">Adresse du cabinet <span class="required">*</span></label>
-                            <textarea id="adresse_cabinet" name="adresse_cabinet" class="form-control" rows="3"
-                                required>{{ old('adresse_cabinet') }}</textarea>
+                            <textarea id="adresse_cabinet" name="adresse_cabinet" class="form-control" rows="3" required
+                                placeholder="Adresse complète du cabinet...">{{ old('adresse_cabinet') }}</textarea>
                             @error('adresse_cabinet')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -101,7 +110,7 @@
                             <label for="diplomes">Diplômes</label>
                             <textarea id="diplomes" name="diplomes" class="form-control" rows="3"
                                 placeholder="Séparez les diplômes par des virgules">{{ old('diplomes') }}</textarea>
-                            <small class="form-hint">Exemple: Doctorat en Médecine, Spécialisation en Cardiologie</small>
+                            <small class="form-hint">Ex: Doctorat en Médecine, Spécialisation en Cardiologie</small>
                             @error('diplomes')
                                 <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -116,7 +125,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 0;">
                             <label for="photo">Photo de profil</label>
                             <input type="file" id="photo" name="photo" class="form-control" accept="image/*">
                             <small class="form-hint">Format accepté: JPG, PNG (Max: 2MB)</small>
@@ -128,113 +137,15 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Enregistrer
-                    </button>
-                    <a href="{{ route('admin.doctors') }}" class="btn btn-outline">
+                    <a href="{{ route('admin.doctors') }}" class="btn btn-outline"
+                        style="min-width: 120px; justify-content: center;">
                         Annuler
                     </a>
+                    <button type="submit" class="btn btn-primary" style="min-width: 200px; justify-content: center;">
+                        <i class="fas fa-save"></i> Enregistrer
+                    </button>
                 </div>
             </form>
         </div>
     </div>
-
-    <style>
-        .card-body {
-            padding: 2rem;
-        }
-
-        .form-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .form-section {
-            background: var(--gray-100);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 500;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .required {
-            color: var(--danger);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.5rem;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            background: white;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .form-hint {
-            display: block;
-            margin-top: 0.25rem;
-            font-size: 0.8rem;
-            color: var(--secondary);
-        }
-
-        .error-message {
-            display: block;
-            margin-top: 0.25rem;
-            font-size: 0.8rem;
-            color: var(--danger);
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        select.form-control {
-            cursor: pointer;
-        }
-
-        input[type="file"].form-control {
-            padding: 0.5rem;
-        }
-    </style>
 @endsection

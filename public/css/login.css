@@ -94,3 +94,12 @@
     margin-bottom: 15px;
     border-radius: 6px;
 }
+@media (max-width: 480px) {
+    .form-container {
+        width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        box-shadow: none;
+        border: 1px solid #eee;
+    }
+}

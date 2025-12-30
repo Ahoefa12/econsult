@@ -29,7 +29,7 @@ class SpecialiteSeeder extends Seeder
             ['nom' => 'Néphrologie'],
             ['nom' => 'Hématologie'],
             ['nom' => 'Infectiologie'],
-            ['nom' => 'Pneumologie'],
+            ['nom' => 'Pneumologie'],  
         ];
 
         foreach ($specialities as $speciality) {

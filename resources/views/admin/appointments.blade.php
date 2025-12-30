@@ -61,7 +61,7 @@
                                             <button type="submit" class="action-btn" style="color: var(--danger);"
                                                 title="Annuler et envoyer email"
                                                 onclick="return confirm('Annuler ce rendez-vous ?')">
-                                                <i class="fas fa-times"></i>
+                                                <i class="fas fa-times"></i> 
                                             </button>
                                         </form>
                                     @elseif($apt->statut == 'confirme')
