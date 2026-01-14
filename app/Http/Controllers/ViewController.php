@@ -21,7 +21,11 @@ class ViewController extends Controller
 
     public function specialite()
     {
-        return view('specialite.index');
+        // Ne montrer que les spécialités qui ont au moins un médecin
+        $specialites = Specialite::withCount('medecins')
+            ->having('medecins_count', '>', 0)
+            ->get();
+        return view('specialite.index', compact('specialites'));
     }
 
     public function login()
@@ -45,7 +49,11 @@ class ViewController extends Controller
 
     public function rendezvous()
     {
-        return view('rendez-vous');
+        // Ne montrer que les spécialités qui ont au moins un médecin
+        $specialites = Specialite::withCount('medecins')
+            ->having('medecins_count', '>', 0)
+            ->get();
+        return view('rendez-vous', compact('specialites'));
     }
 
     public function choisirMedecin(Request $request)

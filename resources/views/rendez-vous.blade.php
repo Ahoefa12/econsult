@@ -3,62 +3,96 @@
 @section('title', 'Prendre Rendez-vous')
 
 @section('content')
-<!-- Import specific CSS for this page -->
-<link rel="stylesheet" href="{{ asset('css/rendez-vous.css') }}">
+    <!-- Import specific CSS for this page -->
+    <link rel="stylesheet" href="{{ asset('css/rendez-vous.css') }}">
 
-<div class="reservation-container">
+    <div class="reservation-container">
 
-    <!-- HEADER -->
-    <div class="reservation-header">
-        <h1>Prendre rendez-vous</h1>
-        <p>Réservez votre consultation en quelques étapes simples</p>
-    </div>
-
-    <!-- STEPPER -->
-    <div class="stepper-container">
-        <ul class="steps-list">
-            <li class="step active">
-                <div class="step-circle">1</div>
-                <span class="step-label">Spécialité</span>
-            </li>
-            <li class="step">
-                <div class="step-circle">2</div>
-                <span class="step-label">Médecin</span>
-            </li>
-            <li class="step">
-                <div class="step-circle">3</div>
-                <span class="step-label">Date & Heure</span>
-            </li>
-            <li class="step">
-                <div class="step-circle">4</div>
-                <span class="step-label">Informations</span>
-            </li>
-        </ul>
-    </div>
-
-    <!-- SELECTION CARD -->
-    <div class="reservation-card">
-        <h2 class="card-title">Choisissez une spécialité</h2>
-
-        @php
-            $specialites = [
-                'Médecine Générale', 'Cardiologie', 'Dermatologie', 'Pédiatrie',
-                'Gynécologie', 'Ophtalmologie', 'ORL', 'Psychiatrie'
-            ];
-        @endphp
-
-        <div class="specialty-grid">
-            @foreach($specialites as $spec)
-                <a href="{{ route('rendez-vous.medecin') }}" class="specialty-btn">
-                    {{ $spec }}
-                </a>
-            @endforeach
+        <!-- HEADER -->
+        <div class="reservation-header">
+            <h1>Prendre rendez-vous</h1>
+            <p>Réservez votre consultation en quelques étapes simples</p>
         </div>
+
+        <!-- STEPPER -->
+        <div class="stepper-container">
+            <ul class="steps-list">
+                <li class="step active">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Spécialité</span>
+                </li>
+                <li class="step">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Médecin</span>
+                </li>
+                <li class="step">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Date & Heure</span>
+                </li>
+                <li class="step">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Informations</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SELECTION CARD -->
+        <div class="reservation-card">
+            <h2 class="card-title">Choisissez une spécialité</h2>
+
+            @php
+                // Mapping des icônes et couleurs pour les spécialités communes
+                $specialiteStyles = [
+                    'Médecine Générale' => ['icon' => 'fa-solid fa-heart-pulse', 'color' => 'blue'],
+                    'Cardiologie' => ['icon' => 'fa-regular fa-heart', 'color' => 'green'],
+                    'Dermatologie' => ['icon' => 'fa-solid fa-pump-medical', 'color' => 'pink'],
+                    'Pédiatrie' => ['icon' => 'fa-solid fa-baby', 'color' => 'yellow'],
+                    'Gynécologie' => ['icon' => 'fa-solid fa-venus', 'color' => 'purple'],
+                    'Ophtalmologie' => ['icon' => 'fa-solid fa-eye', 'color' => 'cyan'],
+                    'ORL' => ['icon' => 'fa-solid fa-ear-listen', 'color' => 'orange'],
+                    'Psychiatrie' => ['icon' => 'fa-solid fa-brain', 'color' => 'indigo'],
+                ];
+
+                // Couleurs par défaut pour les nouvelles spécialités
+                $defaultColors = ['blue', 'green', 'pink', 'yellow', 'purple', 'cyan', 'orange', 'indigo'];
+                $colorIndex = 0;
+            @endphp
+
+            <div class="specialty-grid">
+                @foreach($specialites as $specialite)
+                    @php
+                        // Utiliser le style prédéfini ou un style par défaut
+                        if (isset($specialiteStyles[$specialite->nom])) {
+                            $icon = $specialiteStyles[$specialite->nom]['icon'];
+                            $color = $specialiteStyles[$specialite->nom]['color'];
+                        } else {
+                            $icon = 'fa-solid fa-stethoscope'; // Icône par défaut
+                            $color = $defaultColors[$colorIndex % count($defaultColors)];
+                            $colorIndex++;
+                        }
+                    @endphp
+
+                    <a href="{{ route('rendez-vous.medecin', ['specialite_id' => $specialite->id]) }}" class="specialty-card">
+                        <div class="icon-box {{ $color }}">
+                            <i class="{{ $icon }}"></i>
+                        </div>
+
+                        <div class="card-content">
+                            <h3 class="specialty-title">{{ $specialite->nom }}</h3>
+
+                            <div class="medecins-count">
+                                <i class="fa-regular fa-user"></i>
+                                {{ $specialite->medecins_count }} médecin{{ $specialite->medecins_count > 1 ? 's' : '' }}
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
     </div>
 
-</div>
-
-<!-- Reuse the same footer as other pages -->
+    <!-- Reuse the same footer as other pages -->
 
 
 @endsection

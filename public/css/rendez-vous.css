@@ -164,10 +164,130 @@
 /* SPECIALTY GRID */
 .specialty-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
 }
 
+/* SPECIALTY CARD (Premium Style) */
+.specialty-card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #f3f4f6;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+.specialty-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+    border-color: #0EAD69;
+}
+
+/* ICON BOX */
+.icon-box {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    transition: 0.3s ease;
+}
+
+/* Colors for Icon Boxes */
+.icon-box.blue {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.icon-box.green {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.icon-box.red {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.icon-box.pink {
+    background: #fce7f3;
+    color: #db2777;
+}
+
+.icon-box.yellow {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+
+.icon-box.purple {
+    background: #f3e8ff;
+    color: #9333ea;
+}
+
+.icon-box.cyan {
+    background: #cffafe;
+    color: #0891b2;
+}
+
+.icon-box.orange {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.icon-box.indigo {
+    background: #e0e7ff;
+    color: #4f46e5;
+}
+
+.specialty-card:hover .icon-box {
+    transform: scale(1.1);
+}
+
+/* CARD CONTENT */
+.card-content {
+    width: 100%;
+}
+
+.specialty-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 15px;
+}
+
+/* MEDECINS COUNT */
+.medecins-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: #05445E;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0f9ff;
+    padding: 6px 12px;
+    border-radius: 50px;
+    width: fit-content;
+}
+
+.medecins-count i {
+    font-size: 12px;
+}
+
+/* Legacy button style - keeping for backward compatibility */
 .specialty-btn {
     display: block;
     width: 100%;

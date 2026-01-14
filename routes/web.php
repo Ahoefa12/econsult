@@ -35,6 +35,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/patients', [App\Http\Controllers\AdminController::class, 'patients'])->name('patients');
         Route::get('/specialties', [App\Http\Controllers\AdminController::class, 'specialties'])->name('specialties');
         Route::get('/settings', [App\Http\Controllers\AdminController::class, 'settings'])->name('settings');
+
+        // Routes pour les spécialités
+        Route::get('/specialties/create', [App\Http\Controllers\AdminController::class, 'createSpecialty'])->name('specialties.create');
+        Route::post('/specialties', [App\Http\Controllers\AdminController::class, 'storeSpecialty'])->name('specialties.store');
+        Route::get('/specialties/{id}/edit', [App\Http\Controllers\AdminController::class, 'editSpecialty'])->name('specialties.edit');
+        Route::put('/specialties/{id}', [App\Http\Controllers\AdminController::class, 'updateSpecialty'])->name('specialties.update');
+        Route::delete('/specialties/{id}', [App\Http\Controllers\AdminController::class, 'deleteSpecialty'])->name('specialties.delete');
+
         Route::get('/doctors/create', [App\Http\Controllers\AdminController::class, 'createDoctor'])->name('doctors.create');
         Route::post('/doctors', [App\Http\Controllers\AdminController::class, 'storeDoctor'])->name('doctors.store');
         Route::get('/doctors/{id}/edit', [App\Http\Controllers\AdminController::class, 'editDoctor'])->name('doctors.edit');

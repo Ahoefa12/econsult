@@ -26,10 +26,27 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('stats'));
     }
 
-    public function appointments()
+    public function appointments(Request $request)
     {
-        $appointments = RendezVous::with(['user', 'medecin'])->orderBy('date_heure', 'desc')->get();
-        return view('admin.appointments', compact('appointments'));
+        $query = RendezVous::with(['user', 'medecin']);
+
+        // Compteurs par statut
+        $stats = [
+            'total' => RendezVous::count(),
+            'pending' => RendezVous::where('statut', 'en_attente')->count(),
+            'confirmed' => RendezVous::where('statut', 'confirme')->count(),
+            'cancelled' => RendezVous::where('statut', 'annule')->count(),
+        ];
+
+        // Filtrage par statut
+        $filter = $request->get('status', 'all');
+        if ($filter !== 'all') {
+            $query->where('statut', $filter);
+        }
+
+        $appointments = $query->orderBy('date_heure', 'desc')->get();
+
+        return view('admin.appointments', compact('appointments', 'stats', 'filter'));
     }
 
     public function doctors()
@@ -271,6 +288,75 @@ class AdminController extends Controller
             \Log::error('Erreur envoi email annulation: ' . $e->getMessage());
         }
 
+
         return redirect()->back()->with('success', 'Rendez-vous annulé et email envoyé au patient!');
+    }
+
+    /**
+     * Affiche le formulaire de création d'une spécialité
+     */
+    public function createSpecialty()
+    {
+        return view('admin.specialty-create');
+    }
+
+    /**
+     * Enregistre une nouvelle spécialité
+     */
+    public function storeSpecialty(Request $request)
+    {
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255|unique:specialites,nom',
+        ]);
+
+        Specialite::create($validated);
+
+        return redirect()->route('admin.specialties')
+            ->with('success', 'Spécialité ajoutée avec succès!');
+    }
+
+    /**
+     * Affiche le formulaire d'édition d'une spécialité
+     */
+    public function editSpecialty($id)
+    {
+        $specialty = Specialite::withCount('medecins')->findOrFail($id);
+        return view('admin.specialty-edit', compact('specialty'));
+    }
+
+    /**
+     * Met à jour une spécialité
+     */
+    public function updateSpecialty(Request $request, $id)
+    {
+        $specialty = Specialite::findOrFail($id);
+
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255|unique:specialites,nom,' . $specialty->id,
+        ]);
+
+        $specialty->update($validated);
+
+        return redirect()->route('admin.specialties')
+            ->with('success', 'Spécialité modifiée avec succès!');
+    }
+
+    /**
+     * Supprime une spécialité
+     */
+    public function deleteSpecialty($id)
+    {
+        $specialty = Specialite::withCount('medecins')->findOrFail($id);
+
+        // Vérifier si des médecins sont associés
+        if ($specialty->medecins_count > 0) {
+            return redirect()->route('admin.specialties')
+                ->with('error', 'Impossible de supprimer cette spécialité car ' . $specialty->medecins_count . ' médecin(s) y sont associé(s).');
+        }
+
+        $specialty->delete();
+
+        return redirect()->route('admin.specialties')
+            ->with('success', 'Spécialité supprimée avec succès!');
     }
 }

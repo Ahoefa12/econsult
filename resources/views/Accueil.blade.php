@@ -13,8 +13,8 @@
             </h1>
 
             <p class="subtitle">
-                Accédez aux meilleurs soins de santé sans vous déplacer. 
-                Prenez rendez-vous avec des médecins certifiés en quelques clics.
+                 Prenez rendez-vous avec des médecins certifiés en quelques clics.
+                 Accédez aux meilleurs soins de santé sans vous déplacer.
             </p>
 
             <div class="hero-buttons">

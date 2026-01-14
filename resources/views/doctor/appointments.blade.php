@@ -33,6 +33,21 @@
             color: white;
             border-color: var(--primary);
         }
+
+        .filter-badge {
+            background: rgba(0, 0, 0, 0.1);
+            color: #6b7280;
+            padding: 0.25rem 0.625rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        .filter-btn.active .filter-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
     </style>
 
     <!-- Filters -->
@@ -40,6 +55,7 @@
         <a href="{{ route('doctor.appointments') }}"
             class="filter-btn {{ !request('filter') && !request('status') ? 'active' : '' }}">
             <i class="fas fa-list"></i> Tous
+            <span class="filter-badge">{{ $stats['total'] }}</span>
         </a>
         <a href="{{ route('doctor.appointments', ['filter' => 'today']) }}"
             class="filter-btn {{ request('filter') == 'today' ? 'active' : '' }}">
@@ -57,10 +73,12 @@
         <a href="{{ route('doctor.appointments', ['status' => 'en_attente']) }}"
             class="filter-btn {{ request('status') == 'en_attente' ? 'active' : '' }}">
             <i class="fas fa-clock"></i> En attente
+            <span class="filter-badge">{{ $stats['pending'] }}</span>
         </a>
         <a href="{{ route('doctor.appointments', ['status' => 'confirme']) }}"
             class="filter-btn {{ request('status') == 'confirme' ? 'active' : '' }}">
             <i class="fas fa-check"></i> Confirmés
+            <span class="filter-badge">{{ $stats['confirmed'] }}</span>
         </a>
     </div>
 
@@ -101,9 +119,9 @@
                             <td>{{ $apt->motif_consultation ?? 'Consultation' }}</td>
                             <td>
                                 <span class="status-badge 
-                                    @if($apt->statut == 'confirme') status-success
-                                    @elseif($apt->statut == 'en_attente') status-warning
-                                    @else status-danger @endif">
+                                            @if($apt->statut == 'confirme') status-success
+                                            @elseif($apt->statut == 'en_attente') status-warning
+                                            @else status-danger @endif">
                                     {{ ucfirst($apt->statut) }}
                                 </span>
                             </td>

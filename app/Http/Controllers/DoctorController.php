@@ -65,6 +65,14 @@ class DoctorController extends Controller
 
         $query = RendezVous::where('medecin_id', $doctor->id);
 
+        // Compteurs par statut
+        $stats = [
+            'total' => RendezVous::where('medecin_id', $doctor->id)->count(),
+            'pending' => RendezVous::where('medecin_id', $doctor->id)->where('statut', 'en_attente')->count(),
+            'confirmed' => RendezVous::where('medecin_id', $doctor->id)->where('statut', 'confirme')->count(),
+            'cancelled' => RendezVous::where('medecin_id', $doctor->id)->where('statut', 'annule')->count(),
+        ];
+
         // Filtres
         if ($request->has('filter')) {
             switch ($request->filter) {
@@ -86,7 +94,7 @@ class DoctorController extends Controller
 
         $appointments = $query->orderBy('date_heure', 'desc')->paginate(20);
 
-        return view('doctor.appointments', compact('doctor', 'appointments'));
+        return view('doctor.appointments', compact('doctor', 'appointments', 'stats'));
     }
 
     /**
