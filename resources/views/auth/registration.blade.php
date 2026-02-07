@@ -149,27 +149,27 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="prenom">Prénom</label>
-                    <input type="text" name="prenom" id="prenom" value="{{ old('prenom') }}" placeholder="Jean" required autofocus>
+                    <input type="text" name="prenom" id="prenom" value="{{ old('prenom') }}" placeholder="" required autofocus>
                 </div>
                 <div class="form-group">
                     <label for="nom">Nom</label>
-                    <input type="text" name="nom" id="nom" value="{{ old('nom') }}" placeholder="Dupont" required>
+                    <input type="text" name="nom" id="nom" value="{{ old('nom') }}" placeholder="" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="email">Adresse E-mail</label>
-                <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="exemple@email.com" required>
+                <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="" required>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="telephone">Téléphone</label>
-                    <input type="tel" name="telephone" id="telephone" value="{{ old('telephone') }}" placeholder="+228 90 00 00 00" required>
+                    <input type="tel" name="telephone" id="telephone" value="{{ old('telephone') }}" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label for="adresse">Adresse de résidence</label>
-                    <input type="text" name="adresse" id="adresse" value="{{ old('adresse') }}" placeholder="Lomé, Quartier..." required>
+                    <input type="text" name="adresse" id="adresse" value="{{ old('adresse') }}" placeholder="" required>
                 </div>
             </div>
 

@@ -139,7 +139,7 @@
 
             <div class="form-group">
                 <label for="email">Adresse E-mail</label>
-                <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="exemple@email.com" required autofocus>
+                <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="" required autofocus>
             </div>
 
             <div class="form-group">
