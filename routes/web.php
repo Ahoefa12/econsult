@@ -14,6 +14,9 @@ Route::get('/login', [App\Http\Controllers\ViewController::class, 'login'])->nam
 Route::get('/registration', [App\Http\Controllers\ViewController::class, 'registration'])->name('registration');
 Route::get('/comment-ca-marche', [App\Http\Controllers\ViewController::class, 'commentCaMarche'])->name('comment_ca_marche');
 Route::get('/contactez-nous', [App\Http\Controllers\ViewController::class, 'contactezNous'])->name('contactez_nous');
+Route::get('/politique-confidentialite', function () {
+    return view('politique-confidentialite');
+})->name('politique_confidentialite');
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
 Route::post('/registration', [App\Http\Controllers\AuthController::class, 'register'])->name('registration.post');
 Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
